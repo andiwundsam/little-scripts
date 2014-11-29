@@ -31,10 +31,6 @@ OptionParser.new do |opts|
       end
 end.parse!
 
-if ARGV.empty?
-    raise "Required: Command"
-end
-
 def debug(s) 
     puts s if $DEBUG
 end
@@ -47,7 +43,7 @@ if options[:weekday]
 
     if date.abbr_dayname != options[:weekday]
         debug "Wrong weekday: #{date.abbr_dayname} != #{options[:weekday]}"
-        exit 0
+        exit 1
     end
 end
 
@@ -56,9 +52,11 @@ if options[:nth]
     nth = ((date.mday - 1) / 7) + 1
     if nth != options[:nth]
         debug "Wrong nth weekday of the month: #{nth} != #{options[:nth]}"
-        exit 0
+        exit 1
     end
 end
 
-system(*ARGV)
+if ARGV
+    system(*ARGV)
+end
 
