@@ -56,7 +56,7 @@ if options[:nth]
     end
 end
 
-if ARGV
+unless ARGV.empty?
     system(*ARGV)
 end
 
